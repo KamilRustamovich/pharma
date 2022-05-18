@@ -11,12 +11,13 @@ const logger = new Logardian()
 
 const DEFAULT_APP_HORT = 'localhost'
 const DEFAULT_APP_PORT = 3000
-const DAY_IN_SECONDS = 86400
 
 async function bootstrap() {
 	const app = await NestFactory.create<NestExpressApplication>(
 		AppModule, { logger }
 	);
+
+	app.useGlobalPipes(new ValidationPipe());
 
 	const configService = app.get(ConfigService)
 

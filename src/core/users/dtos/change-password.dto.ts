@@ -1,6 +1,6 @@
 import { IsUUID, Matches } from 'class-validator'
-import { PASSWORD_MESSAGE } from '../../../shared/interfaces/constants/password-message.constant'
-import { PASSWORD_PATTERN } from '../../../shared/interfaces/constants/password-pattern.constant'
+import { PASSWORD_MESSAGE } from '../../../shared/interfaces/password-message.constant'
+import { PASSWORD_PATTERN } from '../../../shared/interfaces/password-pattern.constant'
 
 export class ChangePasswordDTO {
     @IsUUID()

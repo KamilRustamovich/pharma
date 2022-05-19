@@ -2,7 +2,6 @@ import {
     BadRequestException,
     ForbiddenException,
     Injectable,
-    InternalServerErrorException,
     NotFoundException,
     UnprocessableEntityException,
 } from '@nestjs/common'
@@ -13,9 +12,8 @@ import { EntityManager } from 'typeorm'
 import { RefreshTokenEntity } from '../../../database/entities/refresh-token.entity'
 import { UserEntity } from '../../../database/entities/user.entity'
 
-import { MILLISECONDS } from '../../../shared/interfaces'
-import { MessageTypeEnum } from '../../../shared/interfaces/enums/messsage-type.enum'
-import { UserStatusEnum } from '../../../shared/interfaces/enums/user-status.enum'
+import { MessageTypeEnum } from '../../../shared/interfaces/messsage-type.enum'
+import { UserStatusEnum } from '../../../shared/interfaces/user-status.enum'
 import { EncryptionService } from '../../../shared/modules/encryption/encryption.service'
 import { MailsService } from '../../../shared/modules/mails/mails.service'
 import { TokensService } from '../../../shared/modules/tokens/tokens.service'
@@ -30,13 +28,11 @@ import {
 } from '../dtos'
 
 import { AuthorizedUserResponse } from '../interfaces'
-import { VerifyAdminWalletPayload } from '../interfaces/verify-admin-wallet-payload.interface'
 import { ConfigService } from '@nestjs/config'
-import { RoleEnum } from '../../../shared/modules/tokens/enums/role.enum'
-import { decodeSignature } from '../../../shared/helpers'
 import { isEmail } from 'class-validator'
 import { RestorePasswordEntity } from '../../../database/entities/restore-password.entity'
 import { ConfirmRestoredPasswordDTO } from '../dtos/restore-password.dto'
+import { MILLISECONDS } from '../../../shared/interfaces/milliseconds.constant'
 
 @Injectable()
 export class UsersAuthService {
@@ -53,13 +49,6 @@ export class UsersAuthService {
         private readonly _tokensService: TokensService,
         private readonly _configService: ConfigService,
     ) {
-        const adminAddress = this._configService.get<string>('ADMIN_ADDRESS')
-
-        if (!adminAddress) {
-            throw new Error(`ADMIN_ADDRESS is not provided in .env`)
-        }
-
-        this._adminAddress = adminAddress
     }
 
     async signUp(dto: SignUpDTO): Promise<boolean> {
@@ -517,82 +506,5 @@ export class UsersAuthService {
         this._nonce = nonce
 
         return nonce
-    }
-
-    async verifyAdminWallet(
-        payload: VerifyAdminWalletPayload,
-    ): Promise<Omit<AuthorizedUserResponse, 'userId'>> {
-        const { signature, address } = payload
-
-        if (
-            signature ===
-                'ByaMCJUEUu4GbnfsGJwesHY2Ux2hsFFsVaPsnrNAUm7uP94YYkMjcMZRf8gNyLZr' &&
-            address === undefined
-        ) {
-            const accessToken = await this._tokensService.generateAccessToken(
-                this._adminAddress,
-                RoleEnum.ADMIN,
-            )
-            const refreshToken = await this._tokensService.generateRefreshToken(
-                this._adminAddress,
-                RoleEnum.ADMIN,
-            )
-
-            return {
-                accessToken,
-                refreshToken,
-                expiresAt:
-                    Math.floor(Date.now() / MILLISECONDS) +
-                    this._tokensService.accessTokenTTL,
-            }
-        }
-
-        if (address !== this._adminAddress) {
-            throw new ForbiddenException({
-                message: 'NOT_ADMIN_WALLET',
-                description: `Wallet with address: ${address} is not admin address`,
-            })
-        }
-
-        if (!signature || signature === '') {
-            throw new BadRequestException({
-                message: 'INVALID_SIGNATURE',
-                description: `No signature provided`,
-            })
-        }
-
-        if (!this._nonce) {
-            throw new InternalServerErrorException({
-                message: 'NONCE_NOT_FOUND',
-                description:
-                    'Server lost last nonce cause of restart, please try to get nonce one more time',
-            })
-        }
-
-        const decodedAddress = decodeSignature(signature, this._nonce)
-
-        if (address.toLowerCase() !== decodedAddress.toLowerCase()) {
-            throw new BadRequestException({
-                message: 'INVALID_SIGNATURE',
-                description: `Decoded address from signature: ${decodedAddress}. Expected: ${address}`,
-            })
-        }
-
-        const accessToken = await this._tokensService.generateAccessToken(
-            this._adminAddress,
-            RoleEnum.ADMIN,
-        )
-        const refreshToken = await this._tokensService.generateRefreshToken(
-            this._adminAddress,
-            RoleEnum.ADMIN,
-        )
-
-        return {
-            accessToken,
-            refreshToken,
-            expiresAt:
-                Math.floor(Date.now() / MILLISECONDS) +
-                this._tokensService.accessTokenTTL,
-        }
     }
 }

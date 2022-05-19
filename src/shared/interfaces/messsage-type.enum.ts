@@ -1,0 +1,5 @@
+export enum MessageTypeEnum {
+    SIGN_UP_CODE = 'SIGN_UP_CODE',
+    WHITELISTED = 'WHITELISTED',
+    HELLO_MESSAGE = 'HELLO_MESSAGE',
+}

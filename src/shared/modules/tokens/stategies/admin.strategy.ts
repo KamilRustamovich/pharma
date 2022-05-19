@@ -23,14 +23,6 @@ export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {
                 algorithm: _configService.get('JWT_ALGORITHM'),
             },
         })
-
-        const adminAddress = this._configService.get<string>('ADMIN_ADDRESS')
-
-        if (!adminAddress) {
-            throw new Error(`ADMIN_ADDRESS is not provided in .env`)
-        }
-
-        this._adminAddress = adminAddress
     }
 
     async validate(payload: AccessTokenPayload): Promise<boolean> {

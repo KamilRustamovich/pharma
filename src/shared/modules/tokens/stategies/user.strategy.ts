@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { ExtractJwt, Strategy } from 'passport-jwt'
 import { getManager } from 'typeorm'
 import { UserEntity } from '../../../../database/entities/user.entity'
-import { UserStatusEnum } from '../../../interfaces/enums/user-status.enum'
+import { UserStatusEnum } from '../../../interfaces/user-status.enum'
 import { RoleEnum } from '../enums/role.enum'
 
 export interface AccessTokenPayload {

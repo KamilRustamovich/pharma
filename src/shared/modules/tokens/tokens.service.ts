@@ -5,7 +5,7 @@ import { SignOptions, TokenExpiredError } from 'jsonwebtoken'
 import { ConfigService } from '@nestjs/config'
 import { RefreshTokenEntity } from '../../../database/entities/refresh-token.entity'
 import { Injectable, UnprocessableEntityException } from '@nestjs/common'
-import { MILLISECONDS } from '../../interfaces/constants/milliseconds.constant'
+import { MILLISECONDS } from '../../interfaces/milliseconds.constant'
 import { RefreshTokenPayload } from './interfaces/refresh-token-payload.interface'
 import { RoleEnum } from './enums/role.enum'
 

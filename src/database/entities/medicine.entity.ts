@@ -5,17 +5,11 @@ import { CommonBaseEntity } from './common-base.entity'
 @Entity('medicine')
 export class MedicineEntity extends CommonBaseEntity {
     @Column()
-    title: string
+    productName: string
 
     @Column()
     price: number
-
-    @Column()
-    image: boolean
-
-    @Column()
-	slug: string;
-
+    
     @Column({ default: ''})
 	mediaURL: string;
 
@@ -26,6 +20,6 @@ export class MedicineEntity extends CommonBaseEntity {
 		() => CartEntity, 
 		cart => cart.products,
 	)
-	cart: CartEntity;
+	cart?: CartEntity;
 }
 

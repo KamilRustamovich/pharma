@@ -1,26 +1,38 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { MedicineEntity } from '../../../database/entities/medicine.entity';
 import { CreateMedicineDto } from '../dtos/create-medicine.dto';
 import { UpdateMedicineDto } from '../dtos/update-medicine.dto';
 
 @Injectable()
 export class MedicinesService {
-  create(createMedicineDto: CreateMedicineDto) {
-    return 'This action adds a new medicine';
-  }
+	constructor(
+		@InjectRepository(MedicineEntity) private readonly medRepo: Repository<MedicineEntity>
+	) {}
 
-  findAll() {
-    return `This action returns all medicines`;
-  }
+	async create(createMedicineDto: CreateMedicineDto) {
+		const newMedicine = await this.medRepo.create(createMedicineDto);
+		return await this.medRepo.save(newMedicine)
+	}
 
-  findOne(id: number) {
-    return `This action returns a #${id} medicine`;
-  }
+	async findAll() {
+		return await this.medRepo.find();
+	}
 
-  update(id: number, updateMedicineDto: UpdateMedicineDto) {
-    return `This action updates a #${id} medicine`;
-  }
+	async findOneById(id: string) {
+		return await this.medRepo.findOne({
+			where: {
+				id
+			}
+		});
+	}
 
-  remove(id: number) {
-    return `This action removes a #${id} medicine`;
-  }
+	// update(id: number, updateMedicineDto: UpdateMedicineDto) {
+	// 	return await this.;
+	// }
+
+	async remove(id: string) {
+		return await this.medRepo.softDelete(id);
+	}
 }

@@ -6,10 +6,10 @@ import { MedicinesService } from "./services/medicines.service";
 export class MedicinesController {
     constructor(private readonly medService: MedicinesService) {}
 
-    @Post('create')
-    async createMedicine(
-        @Body() createMedicineDto: CreateMedicineDto
-    ): Promise<> {
+    // @Post('create')
+    // async createMedicine(
+    //     @Body() createMedicineDto: CreateMedicineDto
+    // ): Promise<> {
 
-    }
+    // }
 }

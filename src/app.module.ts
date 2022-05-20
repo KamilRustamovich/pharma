@@ -8,6 +8,7 @@ import { EncryptionModule } from './shared/modules/encryption/encryption.module'
 import { ScheduleModule } from '@nestjs/schedule'
 import { UsersModule } from './core/users/users.module'
 import { MedicinesModule } from './core/medicines/medicines.module'
+import { CartsModule } from './core/carts/carts.module'
 
 @Module({
     imports: [
@@ -16,7 +17,8 @@ import { MedicinesModule } from './core/medicines/medicines.module'
         ScheduleModule.forRoot(),
         UsersModule,
         EncryptionModule,
-        MedicinesModule
+        MedicinesModule,
+        CartsModule
     ],
 })
 export class AppModule {}

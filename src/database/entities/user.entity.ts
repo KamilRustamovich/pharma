@@ -1,5 +1,6 @@
-import { Entity, Column, Unique } from 'typeorm'
+import { Entity, Column, Unique, OneToOne, JoinColumn } from 'typeorm'
 import { UserStatusEnum } from '../../shared/interfaces/user-status.enum'
+import { CartEntity } from './cart.entity'
 import { CommonBaseEntity } from './common-base.entity'
 
 @Entity('users')
@@ -23,4 +24,8 @@ export class UserEntity extends CommonBaseEntity {
         default: UserStatusEnum.EMAIL_VERIFICATION_PENDING,
     })
     status: UserStatusEnum
+
+    @OneToOne(() => CartEntity)
+    @JoinColumn()
+    cart: CartEntity
 }

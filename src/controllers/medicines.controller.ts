@@ -1,13 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Render } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Render, UseGuards } from "@nestjs/common";
 import { CreateMedicineDto } from "../core/medicines/dtos/create-medicine.dto";
 import { UpdateMedicineDto } from "../core/medicines/dtos/update-medicine.dto";
 import { MedicinesService } from "../core/medicines/services/medicines.service"
+import { AdminRestGuard } from "../shared/modules/tokens/guards/admin-rest.guard";
 
 @Controller('medicines')
 export class MedicinesController {
 	constructor(private readonly medService: MedicinesService) { }
 
-	@Post()
+	@UseGuards(AdminRestGuard)
+	@Post('create')
 	create(@Body() createMedicineDto: CreateMedicineDto) {
 		return this.medService.create(createMedicineDto);
 	}

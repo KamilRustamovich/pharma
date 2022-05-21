@@ -4,6 +4,7 @@ import { CartsModule } from '../core/carts/carts.module';
 import { MedicinesModule } from '../core/medicines/medicines.module';
 import { UsersModule } from '../core/users/users.module';
 import { CartsController } from './carts.controller';
+import { IndexController } from './index.controller';
 import { MedicinesController } from './medicines.controller';
 import { UsersController } from './users.controller';
 
@@ -16,6 +17,11 @@ import { UsersController } from './users.controller';
             dest: `${__dirname}/../public`,
         }),
     ],
-    controllers: [CartsController, MedicinesController, UsersController]
+    controllers: [
+        CartsController, 
+        MedicinesController, 
+        UsersController,
+        IndexController
+    ]
 })
 export class RestModule {}

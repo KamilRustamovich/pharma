@@ -28,9 +28,9 @@ export class MedicinesService {
 		});
 	}
 
-	// update(id: number, updateMedicineDto: UpdateMedicineDto) {
-	// 	return await this.;
-	// }
+	async update(id: string, updateMedicineDto: UpdateMedicineDto) {
+		return await this.medRepo.update({ id }, updateMedicineDto);
+	}
 
 	async remove(id: string) {
 		return await this.medRepo.softDelete(id);

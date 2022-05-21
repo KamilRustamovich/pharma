@@ -2,6 +2,8 @@ import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { ChangePasswordDTO, RefreshTokenDTO, ResendEmailDTO, SignInDTO, SignUpDTO, VerifyEmailDTO } from "../core/users/dtos";
 import { ConfirmRestoredPasswordDTO } from "../core/users/dtos/restore-password.dto";
 import { UsersAuthService } from "../core/users/services/users-auth.service";
+import { UserEntity } from "../database/entities/user.entity";
+import { User } from "../shared/decorators/user.decorator";
 
 @Controller('user')
 export class UsersController {
@@ -47,9 +49,8 @@ export class UsersController {
 		return await this.usersService.changePassword(changePasswordDTO);
 	}
 
-	@UseGuards(UserGuard)
-    @Get()
-    async user(@CurrentUser() user: UserEntity): Promise<UserQueryType> {
-        return await this._usersInfoService.getUser(user)
-    }
+    // @Get()
+    // async user(@User() user: UserEntity){
+    //     return await this._usersInfoService.getUser(user)
+    // }
 }

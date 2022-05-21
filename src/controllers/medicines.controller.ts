@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Render } from "@nestjs/common";
 import { CreateMedicineDto } from "../core/medicines/dtos/create-medicine.dto";
 import { UpdateMedicineDto } from "../core/medicines/dtos/update-medicine.dto";
 import { MedicinesService } from "../core/medicines/services/medicines.service"
@@ -13,6 +13,7 @@ export class MedicinesController {
 	}
 
 	@Get()
+	@Render('index')
 	findAll() {
 		return this.medService.findAll();
 	}

@@ -9,6 +9,7 @@ import { ScheduleModule } from '@nestjs/schedule'
 import { UsersModule } from './core/users/users.module'
 import { MedicinesModule } from './core/medicines/medicines.module'
 import { CartsModule } from './core/carts/carts.module'
+import { RestModule } from './controllers/rest.module'
 
 @Module({
     imports: [
@@ -18,7 +19,8 @@ import { CartsModule } from './core/carts/carts.module'
         UsersModule,
         EncryptionModule,
         MedicinesModule,
-        CartsModule
+        CartsModule,
+        RestModule
     ],
 })
 export class AppModule {}

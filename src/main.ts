@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { join } from 'path';
+import {resolve } from 'path';
 import { Logardian } from 'logardian'
 
 import { AppModule } from './app.module';
@@ -24,8 +24,8 @@ async function bootstrap() {
 	const port = configService.get('PORT') || DEFAULT_APP_PORT
 	const hostname = configService.get('HOST') || DEFAULT_APP_HORT
 
-	app.useStaticAssets(join(__dirname, '..', 'public'));
-	app.setBaseViewsDir(join(__dirname, '..', 'views'));
+	app.useStaticAssets(resolve('./src/public'));
+ 	app.setBaseViewsDir(resolve('./src/views'));
 	app.setViewEngine('hbs');
 
 	const logardianLabels = configService.get('LOGARDIAN_LABELS') || '*'

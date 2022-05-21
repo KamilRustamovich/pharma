@@ -47,7 +47,6 @@ export class UsersAuthService {
         private readonly _entityManager: EntityManager,
         private readonly _encryptionService: EncryptionService,
         private readonly _tokensService: TokensService,
-        private readonly _configService: ConfigService,
     ) {
     }
 
@@ -58,7 +57,9 @@ export class UsersAuthService {
             const userRepository = manager.getRepository(UserEntity)
 
             const userByEmail = await userRepository.findOne({
-                email,
+                where: {
+                    email
+                }
             })
 
             if (
@@ -116,7 +117,9 @@ export class UsersAuthService {
         const userRepository = this._entityManager.getRepository(UserEntity)
 
         const userByEmail = await userRepository.findOne({
-            email,
+            where: {
+                email
+            }
         })
 
         if (!userByEmail) {
@@ -169,7 +172,9 @@ export class UsersAuthService {
         const userRepository = this._entityManager.getRepository(UserEntity)
 
         const userByEmail = await userRepository.findOne({
-            email,
+            where: {
+                email
+            }
         })
 
         if (!userByEmail) {
@@ -233,7 +238,9 @@ export class UsersAuthService {
             this._entityManager.getRepository(RefreshTokenEntity)
 
         const token = await tokenRepository.findOne({
-            id: refreshTokenPayload.jti,
+            where: {
+                id: refreshTokenPayload.jti
+            }
         })
 
         if (!token) {
@@ -252,7 +259,11 @@ export class UsersAuthService {
 
         const user = await this._entityManager
             .getRepository(UserEntity)
-            .findOne({ id: token.userId })
+            .findOne({
+                where: {
+                    id: token.userId
+                }
+            })
 
         if (!user) {
             throw new UnprocessableEntityException(`REFRESH_TOKEN_MALFORMED`)
@@ -284,7 +295,11 @@ export class UsersAuthService {
 
         const userRepository = this._entityManager.getRepository(UserEntity)
 
-        const userByUserId = await userRepository.findOne({ email })
+        const userByUserId = await userRepository.findOne({
+            where: {
+                email
+            }
+        })
 
         if (!userByUserId) {
             throw new NotFoundException({
@@ -354,7 +369,9 @@ export class UsersAuthService {
         )
 
         const userByEmail = await userRepository.findOne({
-            email,
+            where: {
+                email
+            }
         })
 
         if (!userByEmail) {
@@ -418,7 +435,11 @@ export class UsersAuthService {
 
         const { id, vericationCode } = dto
 
-        const restorePassword = await restorePasswordRepository.findOne({ id })
+        const restorePassword = await restorePasswordRepository.findOne({
+            where: {
+                id
+            }
+        })
 
         if (!restorePassword) {
             throw new NotFoundException({
@@ -453,7 +474,11 @@ export class UsersAuthService {
 
         const { id, newPassword } = dto
 
-        const restorePassword = await restorePasswordRepository.findOne({ id })
+        const restorePassword = await restorePasswordRepository.findOne({
+            where: {
+                id
+            }
+        })
 
         if (!restorePassword) {
             throw new NotFoundException({
@@ -472,7 +497,9 @@ export class UsersAuthService {
         const { email } = restorePassword
 
         const userByEmail = await userRepository.findOne({
-            email,
+            where: {
+                email
+            }
         })
 
         if (!userByEmail) {

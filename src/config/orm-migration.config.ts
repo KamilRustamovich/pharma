@@ -16,9 +16,9 @@ const connectionOptions: ConnectionOptions = {
     username: process.env.PSQL_USERNAME,
     password: process.env.PSQL_PASSWORD,
     migrations: [`${__dirname}/../database/migrations/*{.ts,.js}`],
-    cli: {
-        migrationsDir: `${__dirname}/../database/migrations`,
-    },
+    // cli: {
+    //     migrationsDir: `${__dirname}/../database/migrations`,
+    // },
 }
 
 export = connectionOptions

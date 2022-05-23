@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Render, UseGuards } from "@nestjs/common";
+import { Body, Controller, Post, Render, UseGuards } from "@nestjs/common";
 import { ChangePasswordDTO, RefreshTokenDTO, ResendEmailDTO, SignInDTO, SignUpDTO, VerifyEmailDTO } from "../core/users/dtos";
 import { ConfirmRestoredPasswordDTO } from "../core/users/dtos/restore-password.dto";
 import { UsersAuthService } from "../core/users/services/users-auth.service";

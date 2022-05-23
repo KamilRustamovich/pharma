@@ -1,10 +1,34 @@
-import { Controller, Get, Render} from '@nestjs/common';
+import { Controller, Get, Redirect, Render} from '@nestjs/common';
 
 @Controller()
 export class IndexController {
-	@Get()
+	@Get('signIn')
     @Render('admin/login')
-	indexPage() {
+	async singIn() {
+		return;
+	}
+
+	@Get()
+	@Redirect('signIn')
+	async index() {
+		return;
+	}
+
+	@Get('signUp')
+	@Render('admin/register')
+	async signUp() {
+		return;
+	}
+
+	@Get('forgotPassword')
+	@Render('admin/forgot_pass')
+	async forgotPassword() {
+		return;
+	}
+
+	@Get('admin')
+	@Render('admin/index')
+	async AdminPage() {
 		return;
 	}
 }

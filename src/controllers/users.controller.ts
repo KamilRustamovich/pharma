@@ -15,7 +15,7 @@ export class UsersController {
 	}
 
     @Post('signIn')
-	@Render('login')
+	@Render('admin/login')
 	async signIn(@Body() signInDTO: SignInDTO) {
 		return await this.usersService.signIn(signInDTO);
 	}

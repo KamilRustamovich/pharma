@@ -9,7 +9,7 @@ import { User } from "../shared/decorators/user.decorator";
 export class UsersController {
 	constructor(private readonly usersService: UsersAuthService) { }
 
-	@Post()
+	@Post('signUp')
 	async signUp(@Body() signUpDTO: SignUpDTO) {
 		return await this.usersService.signUp(signUpDTO);
 	}

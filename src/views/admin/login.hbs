@@ -38,11 +38,11 @@
 										<div class="modal-header">
 											<h5 class="modal-title">Log in</h5> </div>
 										<div class="modal-body">
-											<form method="post" action="http://localhost:3090/signIn" >
+											<form method="post" action="/user/signIn" >
 												<div class="">
-													<input type="text" class="form-control" placeholder="Enter your email"></div>
+													<input value="{{email}}" type="text" class="form-control" placeholder="Enter your email"></div>
 												<div class="">
-													<input type="password" class="form-control" placeholder="Password"> </div> 
+													<input value="{{password}}" type="password" class="form-control" placeholder="Password"> </div> 
                                                 <button type="submit" class="btn_1 full_width text-center">Log in</button>
 												<p>Need an account? <a href="http://localhost:3090/signUp"> Sign Up</a></p>
 												<div class="text-center"> <a href="http://localhost:3090/forgotPassword">Forget Password?</a> </div>

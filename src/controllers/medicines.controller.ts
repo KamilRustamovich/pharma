@@ -14,7 +14,7 @@ export class MedicinesController {
 		return this.medService.create(createMedicineDto);
 	}
 
-	@Get()
+	@Get('index')
 	@Render('index')
 	findAll() {
 		return this.medService.findAll();

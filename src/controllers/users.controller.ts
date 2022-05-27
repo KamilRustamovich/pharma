@@ -10,13 +10,34 @@ export class UsersController {
 	constructor(private readonly usersService: UsersAuthService) { }
 
 	@Post('signUp')
-	async signUp(@Body() signUpDTO: SignUpDTO) {
-		return await this.usersService.signUp(signUpDTO);
-	}
+	@Render('admin/register')
+	// async signUp(@Body() signUpDTO: SignUpDTO) {
+	// 	return await this.usersService.signUp(signUpDTO);
+	// }
+	async signUp(
+		@Body() 
+		email: string, password: string) {
+			const signInDTO = {
+				email,
+				password
+			}
+			return await this.usersService.signUp(signInDTO);
+		}
 
     @Post('signIn')
 	@Render('admin/login')
-	async signIn(@Body() signInDTO: SignInDTO) {
+	// async signIn(@Body() signInDTO: SignInDTO) {
+	// 	return await this.usersService.signIn(signInDTO);
+	// }
+	async signIn(
+	@Body() 
+    email: string,
+	@Body() 
+    password: string) {
+		const signInDTO = {
+			email,
+			password
+		}
 		return await this.usersService.signIn(signInDTO);
 	}
 

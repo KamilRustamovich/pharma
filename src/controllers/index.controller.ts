@@ -9,7 +9,7 @@ export class IndexController {
 	}
 
 	@Get()
-	@Redirect('signIn')
+	@Render('index')
 	async index() {
 		return;
 	}

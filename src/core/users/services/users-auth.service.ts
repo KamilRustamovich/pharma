@@ -81,25 +81,28 @@ export class UsersAuthService {
 
             // CREATE USER IN DATABASE
 
-            const verificationCode = this._mailsService.generateCode()
+            // const verificationCode = this._mailsService.generateCode()
+            const verificationCode = '123546'
 
             const newUser = userRepository.create({
                 email,
-                password: await this._encryptionService.encrypt(password),
+                // password: await this._encryptionService.encrypt(password),
+                password,
                 status: UserStatusEnum.EMAIL_VERIFICATION_PENDING,
-                verificationCode: await this._encryptionService.encrypt(
-                    verificationCode,
-                ),
+                // verificationCode: await this._encryptionService.encrypt(
+                //     verificationCode,
+                // ),
+                verificationCode
             })
 
             // SEND VERIFICATION CODE TO EMAIL
-            await this._mailsService.sendMessage([
-                {
-                    email,
-                    type: MessageTypeEnum.SIGN_UP_CODE,
-                    params: { verificationCode },
-                },
-            ])
+            // await this._mailsService.sendMessage([
+            //     {
+            //         email,
+            //         type: MessageTypeEnum.SIGN_UP_CODE,
+            //         params: { verificationCode },
+            //     },
+            // ])
 
             newUser.sendCodeAt = new Date()
 

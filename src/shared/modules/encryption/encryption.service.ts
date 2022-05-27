@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import createHash from 'create-hash'
+import * as createHash from 'create-hash'
 import { SodiumPlus, CryptographyKey } from 'sodium-plus'
 
 @Injectable()

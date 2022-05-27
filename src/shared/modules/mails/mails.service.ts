@@ -157,7 +157,8 @@ export class MailsService {
 
     generateCode(): string {
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        const n = crypto.randomInt(0, 1000000)
+        // const n = crypto.randomInt(0, 1000000)
+        const n = 12341234
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         return n.toString().padStart(6, '0')
     }
